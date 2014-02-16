@@ -1,0 +1,27 @@
+{
+  "name": "DonjonKeeper",
+  "version": "0.0.0",
+  "description": "Garage Door",
+  "main": "hello.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/francis-a1/DonjonKeeper.git"
+  },
+  "author": "francis-a1",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/francis-a1/DonjonKeeper/issues"
+  },
+  "homepage": "https://github.com/francis-a1/DonjonKeeper",
+  "dependencies": {
+    "logfmt": "~0.21.0",
+    "express": "~3.4.8",
+    "foreman": "0.0.26"
+  },
+  "engines": {
+    "node": "0.10.x"
+  }
+}
