@@ -19,7 +19,9 @@
   "dependencies": {
     "logfmt": "~0.21.0",
     "express": "~3.4.8",
-    "foreman": "0.0.26"
+    "foreman": "0.0.26",
+	"pg": "2.x",
+	"express": "3.x"
   },
   "engines": {
     "node": "0.10.x"
