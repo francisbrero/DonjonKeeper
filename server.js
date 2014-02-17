@@ -1,31 +1,44 @@
-// server.js
-
-	// set up ========================
-	var express  = require('express');
-	var app      = express(); 								// create our app w/ express
-	var logfmt = require("logfmt");
-	var pg = require('pg'); 					// postgre
-	var port = Number(process.env.PORT || 5000);
-
-	// configuration =================
-
-	var connectionString = process.env.DATABASE_URL;
-
-	app.configure(function() {
-		app.use(express.static(__dirname)); 		// set the static files location wherever we are for users
-		app.use(express.logger('dev')); 						// log every request to the console
-		app.use(express.bodyParser()); 							// pull information from html in POST
-		app.use(express.methodOverride()); 						// simulate DELETE and PUT
-	});
-	
-	
-	// application -------------------------------------------------------------
-	app.get('*', function(req, res) {
-		res.sendfile('./index.html'); // load the single view file (angular will handle the page changes on the front-end)
-	});
-	
-	// listen (start app with node server.js) ======================================
-	app.listen(port);
-	console.log("App listening on port "+port);
-	
-	
+//Define the port to listen to
+var PORT = process.env.PORT || 1983;
+//Include retify.js framework
+var restify = require('restify');
+ 
+var options = {
+  serverName: 'My server',
+  accept: [ 'application/json' ]
+}
+ 
+//Create the server
+var server = restify.createServer(options);
+ 
+//Use bodyParser to read the body of incoming requests
+server.use(restify.bodyParser({ mapParams: false }));
+ 
+server.listen(PORT, '0.0.0.0');
+console.log("listening "+PORT);
+ 
+//Include db_conn file
+var db_conn = require('./db_conn');
+ 
+//IMPORT RESOURCES
+var eventsResource = require('./events');
+eventsResource.setAndConnectClient(db_conn.client);
+ 
+//DEFINE THE URIs THE SERVER IS RESPONDING TO
+server.get('/events', function(req, res) {
+   
+  var events = new eventsResource.Events() ;
+   
+  //Get all events from DB
+  events.getAllEvents(function(result){
+     
+    var allEvents = result;
+ 
+    //If no events exist return 200 and and empty JSON
+    if(allEvents.length == 0) {
+      res.send(200, []);
+      return;
+    }else res.send(200, result);
+  });    
+ 
+});
