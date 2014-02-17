@@ -12,6 +12,10 @@ var connectionString = process.env.DATABASE_URL;
 			res.json(result.rows[0]);
 		});
 	});
+	
+	app.get('/api/bla', function(req, res) {		
+			res.send('ta mere');		
+	});
 		
 	// update status and send back status after creation
 	app.post('/api/status', function(req, res) {

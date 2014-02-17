@@ -12,7 +12,16 @@ function mainController($scope, $http) {
 		.error(function(data) {
 			console.log('Error: ' + data);
 		});
-
+	// when landing on the page, get status and show it
+	$http.get('/api/bla')
+		.success(function(data) {
+			$scope.status = data;
+			console.log(data);
+		})
+		.error(function(data) {
+			console.log('Error: ' + data);
+		});
+	
 	// when submitting the add form, send the text to the node API
 	$scope.createStatus = function() {
 		$http.post('/api/status', $scope.formData)
