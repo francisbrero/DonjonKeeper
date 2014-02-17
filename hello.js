@@ -20,7 +20,8 @@ app.listen(port, function() {
 //returns current status
 function getStatus(onDone){
  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-  client.query('SELECT status from donjonkeeper order by dateModified DESC limit 1', function(err, result) {
+  //client.query('SELECT status from donjonkeeper order by dateModified DESC limit 1', function(err, result) {
+  client.query('insert into donjonkeeper (status, dateModified) values (0, now())', function(err, result) {
     done();
     if(err) return console.error(err);    
 	console.log(result.rows);
