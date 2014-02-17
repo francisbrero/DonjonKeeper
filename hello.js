@@ -16,7 +16,8 @@ app.listen(port, function() {
 
 // Main
 app.get('/', function(req, res) {
-
+  client = new pg.Client(connectionString);
+  client.connect();
   query = client.query('SELECT status from donjonkeeper order by dateModified DESC limit 1');
   query.on('row', function(result) {
     console.log(result);
