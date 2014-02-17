@@ -1,9 +1,9 @@
 {
   "db" : {
-      "host" : "localhost",
+      "host" : "ec2-54-204-32-91.compute-1.amazonaws.com",
       "port" : 5432,
-      "name" : "postgres",
-      "username":"postgres",
-      "password":"alaska87"
+      "name" : "d68jfimno7scnp",
+      "username":"ehmqotboduibbs",
+      "password":"-tiMAWm9OeV2U3Wy2vPnVBoVd5"
     }
 }
