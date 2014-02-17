@@ -18,15 +18,13 @@ app.listen(port, function() {
 app.get('/', function(req, res) {
   client = new pg.Client(connectionString);
   client.connect();
-  query = client.query('SELECT status AS currentStatus from donjonkeeper order by dateModified DESC limit 1');
-  query.on('row', function(result) {
-    console.log(result);
-
+  query = client.query('SELECT status AS currentStatus from donjonkeeper order by dateModified DESC limit 1',function(err, result));
     if (!result) {
       return res.send('No data found');
     } else {
-      res.send('Current Status: ' + result.rows[0].currentStatus);
+      res.send(result.rows[0].currentStatus);
     }
+  client.end();
   });
 });
 
