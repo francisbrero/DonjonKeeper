@@ -2,7 +2,7 @@
   "db" : {
       "host" : "localhost",
       "port" : 5432,
-      "name" : "public",
+      "name" : "postgres",
       "username":"postgres",
       "password":"alaska87"
     }

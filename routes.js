@@ -1,32 +1,7 @@
-//Define the port to listen to
-var PORT = process.env.PORT || 1983;
-//Include retify.js framework
-var express  = require('express');
-var server      = express();
- 
-var options = {
-  serverName: 'My server',
-  accept: [ 'application/json' ]
-}
+var restify = require('restify');
 
-server.configure(function() {
-	server.use(express.static(__dirname + '/public')); 		// set the static files location /public/img will be /img for users
-	server.use(express.logger('dev')); 						// log every request to the console
-	server.use(express.bodyParser()); 							// pull information from html in POST
-	server.use(express.methodOverride()); 						// simulate DELETE and PUT
-});
- 
-//Include db_conn file
-var db_conn = require('./db_conn');
- 
-//IMPORT RESOURCES
-var eventsResource = require('./events');
-eventsResource.setAndConnectClient(db_conn.client);
- 
-// routes ======================================================================
-// require('./routes.js')(server);
-
-//DEFINE THE URIs THE SERVER IS RESPONDING TO
+module.exports = function(server) {
+	//DEFINE THE URIs THE SERVER IS RESPONDING TO
 	server.get('/GET/status', function(req, res) {
 	   
 	  var events = new eventsResource.Events() ;
@@ -97,12 +72,10 @@ eventsResource.setAndConnectClient(db_conn.client);
 	  });
 	}); 
 
-	// // application -------------------------------------------------------------
-	// server.get('*', function(req, res) {
-		// res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
-	// });
-	
-	
-
-server.listen(PORT, '0.0.0.0');
-console.log("listening "+PORT);
+	// application -------------------------------------------------------------
+	server.get(/.*/, restify.serveStatic({
+		'directory': '.',
+		'default': 'index.html'
+		})	
+	);
+};
