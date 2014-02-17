@@ -3,6 +3,9 @@ var PORT = process.env.PORT || 1983;
 //Include retify.js framework
 var express  = require('express');
 var server      = express();
+var pg = require('pg');
+var URL = process.env.DATABASE_URL;
+
  
 var options = {
   serverName: 'My server',
@@ -16,13 +19,17 @@ server.configure(function() {
 	server.use(express.methodOverride()); 						// simulate DELETE and PUT
 });
  
-//Include db_conn file
-var db_conn = require('./db_conn');
+// //Include db_conn file
+// var db_conn = require('./db_conn');
+
  
 //IMPORT RESOURCES
 var eventsResource = require('./events');
-eventsResource.setAndConnectClient(db_conn.client);
+eventsResource.setAndConnectClient(URL.client);
  
+
+
+
 // routes ======================================================================
 // require('./routes.js')(server);
 
