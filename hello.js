@@ -21,9 +21,13 @@ app.get('/', function(req, res) {
   query = client.query('SELECT status AS currentStatus from donjonkeeper order by dateModified DESC limit 1',function(err, result) {
     if(result.rows[0].currentStatus == 0) {
       res.send('currently Closed');
-    } else {
-      res.send('currently open');
+    }
+    if(result.rows[0].currentStatus == 1) {
+      res.send('currently Open');
+    }	else {
+      res.send('currently unknown');
 	  console.log(result.rows[0].currentStatus);
+	  console.log(result.rows[0]);
     }
   client.end();
   });
