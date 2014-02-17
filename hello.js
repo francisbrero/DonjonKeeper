@@ -25,7 +25,7 @@ app.get('/', function(req, res) {
     if (!result) {
       return res.send('No data found');
     } else {
-      res.send('Current Status: ' + result.rows);
+      res.send('Current Status: ' + result.rows[0].status);
     }
   });
 });
