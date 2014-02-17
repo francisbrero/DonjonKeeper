@@ -4,7 +4,7 @@ var donjon = angular.module('donjon', []);
 
 function mainController($scope, $http) {
 	$scope.formData = {};	
-	// when landing on the page, get all todos and show them
+	// when landing on the page, get status and show it
 	$http.get('/GET/currentstatus')
 		.success(function(data) {
 			$scope.result = data;
@@ -13,7 +13,7 @@ function mainController($scope, $http) {
 			console.log('Error: ' + data);
 		});
 	
-	// when submitting the add form, send the text to the node API
+	// not used...
 	 $scope.status = function() {
 		 $http.get('/GET/status', $scope.formData)
 			 .success(function(data) {
@@ -24,7 +24,7 @@ function mainController($scope, $http) {
 			 });
 	 };
 		
-	// when submitting the add form, send the text to the node API
+	// post open to the db
 	 $scope.open = function() {
 		 $http.get('/POST/open', $scope.formData)
 			 .success(function(data) {
@@ -43,7 +43,7 @@ function mainController($scope, $http) {
 		});
 	 };
 	 
-	 // when submitting the add form, send the text to the node API
+	 // post close to db
 	 $scope.close = function() {
 		 $http.get('/POST/close', $scope.formData)
 			 .success(function(data) {

@@ -8,7 +8,7 @@ exports.setAndConnectClient = function(_client){
   client = _client;  //assign it to the module's client var  
   client.connect();  //connect to DB...
 }
- 
+
 //GET All status! 
 Events.prototype.GET = function(callback){
    var allEvents = [];  

@@ -4,13 +4,13 @@ var PORT = process.env.PORT || 1983;
 var express  = require('express');
 var server      = express();
  
-var options = {
-  serverName: 'My server',
-  accept: [ 'application/json' ]
-}
+// var options = {
+//   serverName: 'My server',
+//   accept: [ 'application/json' ]
+// }
 
 server.configure(function() {
-	server.use(express.static(__dirname + '/public')); 		// set the static files location /public/img will be /img for users
+	server.use(express.static(__dirname + '/public')); 		// set the static files location
 	server.use(express.logger('dev')); 						// log every request to the console
 	server.use(express.bodyParser()); 							// pull information from html in POST
 	server.use(express.methodOverride()); 						// simulate DELETE and PUT
@@ -18,19 +18,19 @@ server.configure(function() {
  
 //Include db_conn file
 var db_conn = require('./db_conn');
- 
+ 
 //IMPORT RESOURCES
 var eventsResource = require('./events');
-eventsResource.setAndConnectClient(db_conn.client);
- 
+var client = eventsResource.setAndConnectClient(db_conn.client);
+
+
+
 // routes ======================================================================
 // require('./routes.js')(server);
 
 //DEFINE THE URIs THE SERVER IS RESPONDING TO
-	server.get('/GET/status', function(req, res) {
-	   
+	server.get('/GET/status', function(req, res) {   
 	  var events = new eventsResource.Events() ;
-	   
 	  //Get all events from DB
 	  events.GET(function(result){
 	     
@@ -97,12 +97,10 @@ eventsResource.setAndConnectClient(db_conn.client);
 	  });
 	}); 
 
-	// // application -------------------------------------------------------------
-	// server.get('*', function(req, res) {
-		// res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
-	// });
+	// application -------------------------------------------------------------
+	 server.get('*', function(req, res) {
+		 res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+	});
 	
-	
-
 server.listen(PORT, '0.0.0.0');
 console.log("listening "+PORT);
