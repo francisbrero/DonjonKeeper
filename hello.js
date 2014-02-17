@@ -19,7 +19,7 @@ app.get('/', function(req, res) {
   client = new pg.Client(connectionString);
   client.connect();
   query = client.query('SELECT status AS currentStatus from donjonkeeper order by dateModified DESC limit 1',function(err, result) {
-    if(result.rows[0].currentStatus = '0') {
+    if(result.rows[0].currentStatus.ToInt == 0) {
       res.send('currently Closed');
     } else {
       res.send('currently open');
