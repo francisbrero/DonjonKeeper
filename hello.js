@@ -20,7 +20,7 @@ app.get('/', function(req, res) {
   client.connect();
   query = client.query('SELECT status AS currentstatus from donjonkeeper order by dateModified DESC limit 1',function(err, result) {
     if(result.rows[0].currentstatus == 0) {
-      res.send('currently Closed');
+      res.send('currently Closed' + 'http://donjonkeeper.herokuapp.com/Open.js');
     }
     if(result.rows[0].currentstatus == 1) {
       res.send('currently Open');
@@ -33,20 +33,18 @@ app.get('/', function(req, res) {
   });
 });
 
-
-//returns current status
-/*function changeStatus(onDone){
- pg.connect(connectionString, function(err, client, done) {
-  //client.query('SELECT status from donjonkeeper order by dateModified DESC limit 1', function(err, result) {
-  client.query('insert into donjonkeeper (status, dateModified) values (0, now())', function(err, result) {
-    done();
-    if(err) return console.error(err);    
-	console.log(result.rows);
-	onDone();
-   });
-  });
+// change the status of the door
+function changestatus(status){
+	client = new pg.Client(connectionString);
+	client.connect();
+	query = client.query('insert into donjonkeeper (status, dateModified) values ('+ status + ', now())', function(err, result){
+		if(err) return console.error(err);    
+		console.log(result.rows);
+	});
+	client.end();
 }
-*/
+
+
 // Close db connections
 function disconnectAll() {
     pg.end();
