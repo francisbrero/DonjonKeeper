@@ -4,10 +4,7 @@ var PORT = process.env.PORT || 1983;
 var express  = require('express');
 var server      = express();
  
-// var options = {
-//   serverName: 'My server',
-//   accept: [ 'application/json' ]
-// }
+console.log(process.env.DATABASE_URL);
 
 server.configure(function() {
 	server.use(express.static(__dirname + '/public')); 		// set the static files location
