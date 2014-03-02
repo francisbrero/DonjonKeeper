@@ -71,10 +71,7 @@ function mainController($scope, $http) {
 			 })
 			 .error(function(data) {
 				 console.log('Error: ' + data);
-			 });
-		setTimeout(function() {
-		console.log('Activating');
-		}, 2000	);
+			 });		
 		$http.get('/POST/close', $scope.formData)
 			 .success(function(data) {
 				$scope.results = data;
