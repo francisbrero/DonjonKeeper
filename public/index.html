@@ -24,11 +24,11 @@
 	<script src="./core.js"></script>
 
 </head>
-<!-- SET THE CONTROLLER AND GET ALL TODOS WITH INITIALIZE FUNCTION -->
+<!-- SET THE CONTROLLER AND GET STATUS WITH INITIALIZE FUNCTION -->
 <body ng-controller="mainController">
 	<div class="container">
 
-		<!-- HEADER AND TODO COUNT -->
+		<!-- Welcome !-->
 		<div class="jumbotron text-center">
 			<h1><p>WelCome to the Donjon!</p> 
 				<p>The Donjon is: <span class="label label-info">{{ result[0].status }}<p>
@@ -36,14 +36,11 @@
 		</div>
 
 
-		<!-- FORM TO CREATE TODOS -->
 		<div id="a-form" class="row">
 			<div class="col-sm-8 col-sm-offset-2 text-center">
 				<form>					
-					<!-- open() WILL CREATE NEW TODOS -->
-					<button type="submit" class="btn btn-primary btn-lg" ng-click="open()">open Now!!</button>
-					<!-- close() WILL CREATE NEW TODOS -->
-					<button type="submit" class="btn btn-primary btn-lg" ng-click="close()">close Now!!</button>
+					<!-- Activate -->
+					<button type="submit" class="btn btn-primary btn-lg" ng-click="activate()">Activate Now!!</button>
 				</form>
 			</div>
 		</div>

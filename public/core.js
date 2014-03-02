@@ -62,5 +62,31 @@ function mainController($scope, $http) {
 			console.log('Error: ' + data);
 		});
 	 };
+	 
+	 // activate the door
+	 $scope.activate = function() {
+		 $http.get('/POST/open', $scope.formData)
+			 .success(function(data) {
+				$scope.results = data;
+			 })
+			 .error(function(data) {
+				 console.log('Error: ' + data);
+			 });
+		$http.get('/POST/close', $scope.formData)
+			 .success(function(data) {
+				$scope.results = data;
+			 })
+			 .error(function(data) {
+				 console.log('Error: ' + data);
+			 });
+		// Refresh status
+		$http.get('/GET/currentstatus')
+		.success(function(data) {
+			$scope.result = data;
+		})
+		.error(function(data) {
+			console.log('Error: ' + data);
+		});
+	 };
 
 }
