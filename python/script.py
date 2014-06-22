@@ -3,9 +3,11 @@ import json
 import time ## Import 'time' library. Allows us to use 'sleep'
 import RPi.GPIO as GPIO ## Import GPIO library
 GPIO.setmode(GPIO.BOARD) ## Use board pin numbering
-GPIO.setup(7, GPIO.OUT) ## Setup GPIO Pin 7 to OUT
+GPIO.setup(12, GPIO.OUT) ## Setup GPIO Pin 5 to OUT
 
-# Let's create a Bridge, yiha!!
+GPIO.output(12,True)
+#print "getting started"
+## Let's create a Bridge, yiha!!
 previousStatus = 'closed'
 while True:
 	#Make the API call
@@ -17,19 +19,21 @@ while True:
 		currentstatus = j[0]
 		status = currentstatus['status']	
 		if status == 'open':
-			if previousStatus =='closed': ## Status has changed from Closed to Open
-			    GPIO.output(7,true) ## Turn on GPIO pin 7
-				time.sleep(0.5)
-				GPIO.output(7,false) ## Turn off GPIO pin 7
+			if previousStatus =='closed': ## Status has changed from Closed to Open                                
+			    #print 'opening door'
+			    GPIO.output(12,False) ## Turn off GPIO pin 7
+			    time.sleep(2)
+			    GPIO.output(12,True) ## Turn on GPIO pin 7
 			previousStatus = 'open'
 			#print 'yiha'
 		else:
 		    if previousStatus == 'open':
-			    GPIO.output(7,true) ## Turn on GPIO pin 7
-				time.sleep(0.5)
-				GPIO.output(7,false) ## Turn off GPIO pin 7
-			previousStatus = 'closed'
-			#print 'bouhou'
+                            #print 'closing door'
+			    GPIO.output(12,False) ## Turn off GPIO pin 7
+			    time.sleep(2)
+			    GPIO.output(12,True) ## Turn back on GPIO pin 7
+		    previousStatus = 'closed'
+		    #print 'bouhou'
 	except URLError, e:
 		print 'Sa mere, ca foire!', e
 	time.sleep(1)
